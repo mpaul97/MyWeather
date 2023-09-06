@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 import { 
     Box, Container, Typography, 
     Paper, IconButton, Menu,
-    MenuItem,
-    Autocomplete,
-    TextField,
-    InputAdornment
+    MenuItem, TextField, InputAdornment,
+    ListItemIcon, ListItemText
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import json_realtime from '../data/realtime_temp_date.json';
-import json_forecast from '../data/forecast_temp_data.json';
-import { Search } from "@mui/icons-material";
+import { Search, Favorite, Person, Settings } from "@mui/icons-material";
+import Weather from "./Weather";
 
-function Home() {
+function Landing() {
 
     // nav menu
     const [anchorEl, setAnchorEl] = useState(null);
@@ -23,23 +20,21 @@ function Home() {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
-    
-    const [realtimeData, setRealtimeData] = useState(json_realtime);
 
-    useEffect(() => {
-        console.log(realtimeData);
-    }, [])
+    // location
+    const [location, setLocation] = useState('Los Angeles');
 
     return (
         <Box
+            id="container"
             display='flex'
             flexDirection='column'
             justifyContent='center'
             alignItems='center'
             width='100vw'
         >
-            {/* Header */}
             <Box
+                id="header"
                 flexGrow={1}
                 component={Paper}
                 width='100%'
@@ -55,43 +50,59 @@ function Home() {
                 >
                     MyWeather
                 </Typography>
+                <TextField
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            (e.target.value !== '') ? setLocation(e.target.value) : setLocation(location)
+                        }
+                    }}
+                    label=""
+                    placeholder="Search by City or Zip Code"
+                    variant="standard"
+                    InputProps={{
+                        startAdornment: (<InputAdornment position='start'><Search /></InputAdornment>),
+                        disableUnderline: false
+                    }}
+                    sx={{
+                        width: '30vw'
+                    }}
+                />
                 <IconButton onClick={handleMenuClick}>
-                    <MenuIcon color='primary' />
+                    <MenuIcon />
                 </IconButton>
                 <Menu
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleMenuClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right'
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    }}
                 >
-                    <MenuItem onClick={handleMenuClose}>Favorites</MenuItem>
-                    <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+                    <MenuItem onClick={handleMenuClose} color="primary">
+                        <ListItemIcon><Favorite fontSize="small" /></ListItemIcon>
+                        <ListItemText>Favorites</ListItemText>
+                    </MenuItem>
+                    <MenuItem onClick={handleMenuClose}>
+                        <ListItemIcon><Person fontSize="small" /></ListItemIcon>
+                        <ListItemText>Profile</ListItemText>
+                    </MenuItem>
+                    <MenuItem onClick={handleMenuClose}>
+                        <ListItemIcon><Settings fontSize="small" /></ListItemIcon>
+                        <ListItemText>Settings</ListItemText>
+                    </MenuItem>
                 </Menu>
-            </Box> 
-            {/* End Header */}
-            {/* Main Content */}
-            <Box>
-                <Autocomplete
-                    freeSolo
-                    renderInput={(params) => 
-                        <TextField 
-                            {...params} 
-                            label="" 
-                            placeholder="Search City"
-                            InputProps={{
-                                ...params.InputProps,
-                                startAdornment: (<InputAdornment position='start'> <Search /> </InputAdornment>),
-                                disableUnderline: true
-                            }}
-                        />
-                    }
-                />
             </Box>
+            <Weather location={location} />
         </Box>
     )
 };
 
-export default Home;
+export default Landing;
 
 // const API_KEY = '9fa9382f92msh7a31d64d5592c88p168c3djsn1401d40dbe5c';
 // const API_HOST = 'weatherapi-com.p.rapidapi.com';

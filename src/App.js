@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
-import Home from './components/Home';
+import Landing from './components/Landing';
 
 const theme = createTheme({
     palette: {
@@ -11,7 +11,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Home />
+            <Landing />
         </ThemeProvider>
     )
 };
