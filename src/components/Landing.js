@@ -104,13 +104,13 @@ function Landing() {
 
 export default Landing;
 
-// const API_KEY = '9fa9382f92msh7a31d64d5592c88p168c3djsn1401d40dbe5c';
+// const API_KEY = ;
 // const API_HOST = 'weatherapi-com.p.rapidapi.com';
 // // const url = 'https://weatherapi-com.p.rapidapi.com/current.json?q=Los%20Angeles%20US';
 // // const options = {
 // // 	method: 'GET',
 // // 	headers: {
-// // 		'X-RapidAPI-Key': '9fa9382f92msh7a31d64d5592c88p168c3djsn1401d40dbe5c',
+// // 		'X-RapidAPI-Key': ,
 // // 		'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
 // // 	}
 // // };
